@@ -27,6 +27,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // 假设您使用cookie-parser中间件来解析cookies
 // app.use(cookieParser());
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 app.use("/", apiRoutes);
 app.use("/api/profession_ability", transRoutes);
