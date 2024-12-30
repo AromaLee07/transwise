@@ -1,49 +1,28 @@
+// src/redis/redisClient.js
 const redis = require('redis');
 
-// 从环境变量加载配置
-const REDIS_HOST = process.env.REDIS_HOST || '127.0.0.1';
-const REDIS_PORT = process.env.REDIS_PORT || 6379;
-const REDIS_PASSWORD = process.env.REDIS_PASSWORD;
-
-// 创建 Redis 客户端配置
-const redisConfig = {
+const redisClient = redis.createClient({
+  url: process.env.REDIS_URL,
   socket: {
-    host: REDIS_HOST,
-    port: REDIS_PORT
+    connectTimeout: 5000,
+    reconnectStrategy: (retries) => {
+      if (retries > 5) return new Error('Too many reconnect attempts');
+      return retries * 100;
+    }
   }
-};
+});
 
-// 只有在设置了密码的情况下才添加密码配置
-if (REDIS_PASSWORD) {
-  redisConfig.password = REDIS_PASSWORD;
-}
-
-// 创建 Redis 客户端
-const redisClient = redis.createClient(redisConfig);
-
-// 连接 Redis
-(async () => {
-  try {
-    await redisClient.connect();
-    console.log('Redis client connected successfully');
-  } catch (err) {
-    console.error('Redis connection error:', err);
-  }
-})();
-
-// 监听错误事件
 redisClient.on('error', (err) => {
-  console.error('Redis Error:', err);
+  console.error('Redis Connection Error:', err);
 });
 
-// 监听重连事件
-redisClient.on('reconnecting', () => {
-  console.log('Redis client reconnecting');
+// 添加连接和断开连接的日志
+redisClient.on('connect', () => {
+  console.log('Redis client connected');
 });
 
-// 监听就绪事件
-redisClient.on('ready', () => {
-  console.log('Redis client is ready');
+redisClient.on('disconnect', () => {
+  console.log('Redis client disconnected');
 });
 
 module.exports = redisClient;
