@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000;
 
 const dotenv = require('dotenv'); // 引入 dotenv
 dotenv.config(); // 加载 .env 文件中的环境变量
-const mongoUri = process.env.MONGO_URI;
+// const mongoUri = process.env.MONGO_URI;
 
 const apiRoutes = require("./routes/apiRoutes.js");
 const transRoutes = require("./routes/transRoutes.js");
@@ -25,9 +25,13 @@ app.use(cors({
 app.use(bodyParser.json());
 
 // MongoDB 连接
+// 替换密码和添加数据库名
+const mongoUri = process.env.MONGO_URI.replace('<db_password>', encodeURIComponent(process.env.MONGO_PASSWORD));
+
 mongoose.connect(mongoUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    // dbName: 'Cluster0' // 指定具体数据库名
 })
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.error('MongoDB connection error:', err));
