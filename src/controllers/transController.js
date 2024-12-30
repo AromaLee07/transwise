@@ -12,7 +12,9 @@ require("dotenv").config(); // 确保环境变量被正确加载
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 console.log(OPENAI_API_KEY);
 
-const redisClient = require("../redis/redisClient");
+// const redisClient = require("../redis/redisClient");
+const { redisClient, connectRedis } = require('../redis/redisClient');
+
 
 const DAILY_LIMIT = 10;
 
