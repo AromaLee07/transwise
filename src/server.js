@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
@@ -32,6 +33,9 @@ app.use(cookieParser());
 
 app.use("/", apiRoutes);
 app.use("/api/profession_ability", transRoutes);
+
+// 静态文件服务
+app.use(express.static(path.join(__dirname, '../public')));
 
 // MongoDB 连接配置
 const mongoUri = process.env.MONGO_URI.replace('<db_password>', encodeURIComponent(process.env.MONGO_PASSWORD));
