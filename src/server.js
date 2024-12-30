@@ -19,8 +19,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // 路由
-app.use('/api', apiRoutes);
-app.use('/trans', transRoutes);
+// app.use('/api', apiRoutes);
+// app.use('/trans', transRoutes);
+app.get('/api', (req, res) => {
+    res.send('Hello from Express!');
+});
+
+// 假设您使用cookie-parser中间件来解析cookies
+app.use(cookieParser());
+
+app.use("/", apiRoutes);
+app.use("/api/profession_ability", transRoutes);
 
 // MongoDB 连接配置
 const mongoUri = process.env.MONGO_URI.replace('<db_password>', encodeURIComponent(process.env.MONGO_PASSWORD));
