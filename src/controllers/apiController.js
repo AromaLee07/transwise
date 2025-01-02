@@ -135,17 +135,17 @@ exports.googleCallback = async (req, res) => {
 
     console.log("extensionId is ....:",extensionId)
 
-    // res.redirect(
-    //   `chrome-extension://${extensionId}/login.html?user=${encodeURIComponent(
-    //     JSON.stringify(userData)
-    //   )}`
-    // );
-
     res.redirect(
-      `chrome-extension://gdalfiappkjoibamgofjffncepfcfhnb/login.html?user=${encodeURIComponent(
+      `chrome-extension://${extensionId}/login.html?user=${encodeURIComponent(
         JSON.stringify(userData)
       )}`
     );
+
+    // res.redirect(
+    //   `chrome-extension://gdalfiappkjoibamgofjffncepfcfhnb/login.html?user=${encodeURIComponent(
+    //     JSON.stringify(userData)
+    //   )}`
+    // );
 
 
       // 将用户重定向到前端页面，并附带用户信息
