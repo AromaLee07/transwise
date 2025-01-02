@@ -127,19 +127,19 @@ exports.googleCallback = async (req, res) => {
 
 
     // 将用户重定向到前端页面，并附带用户信息
-    // res.redirect(
-    //   `chrome-extension://efhojinannanlccmmgmlkbclabplgikn/login.html?user=${encodeURIComponent(
-    //     JSON.stringify(userData)
-    //   )}`
-    // );
-
-    console.log("extensionId is ....:",extensionId)
-
     res.redirect(
-      `chrome-extension://${extensionId}/login.html?user=${encodeURIComponent(
+      `chrome-extension://fkccfnlhmaiojnaiimlnfigbmdhebeel/login.html?user=${encodeURIComponent(
         JSON.stringify(userData)
       )}`
     );
+
+    console.log("extensionId is ....:",extensionId)
+
+    // res.redirect(
+    //   `chrome-extension://${extensionId}/login.html?user=${encodeURIComponent(
+    //     JSON.stringify(userData)
+    //   )}`
+    // );
 
     // res.redirect(
     //   `chrome-extension://gdalfiappkjoibamgofjffncepfcfhnb/login.html?user=${encodeURIComponent(
